@@ -66,27 +66,32 @@ delBtn.addEventListener('click', () => {
 // convert string to numbers and operator and send for calculation
 function calculate (someString) {
   let newArray = someString.split(' ');
-  if(newArray.length < 3){
-    return someString;
-  } else if(newArray.length === 3) {
-  let num1 = Number(newArray[0])
-  let num2 = Number(newArray[2])
-  let operator = newArray[1];
-  let result = operate(operator, num1, num2);
-  newArray = [];
-  newArray[0] = result;
-  return result;
-  } else {
-  let num1 = Number(newArray[0])
-  let num2 = Number(newArray[2])
-  let operator = newArray[1];
-  let operator2 = newArray[3]
-  let result = operate(operator, num1, num2);
-  operator = operator2;
-  newArray = [];
-  newArray[0] = result;
-  newArray[1] = operator2;
-  return result + operator2;
-  }
+    if (newArray.length === 3 ) {
+      if(newArray[2] === '') {
+        newArray.pop();
+        return;
+      }
+      let num1 = Number(newArray[0])
+      let num2 = Number(newArray[2])
+      let operator = newArray[1];
+      let result = operate(operator, num1, num2);
+      displayArea.value = result.toString();
+      newArray = [];
+      newArray[0] = result;
+      return;
+     } else if(newArray.length > 3) {
+        console.log(newArray);
+      let num1 = Number(newArray[0])
+      let num2 = Number(newArray[2])
+      let operator = newArray[1];
+      let operator2 = newArray[3]
+      let result = operate(operator, num1, num2);
+      operator = operator2;
+      newArray = [];
+      newArray[0] = result;
+      newArray[1] = operator2;
+      displayArea.value = `${result} ${operator} `
+      return;
+      }
   
 }
