@@ -41,7 +41,7 @@ digitButton.forEach(item => {
     displayArea.value += item.value;
   })
 })
-
+//event listener for operators
 operatorBtn.forEach(item => {
   item.addEventListener('click', (e) => {
     let operator = item.value;
@@ -66,21 +66,25 @@ delBtn.addEventListener('click', () => {
 // convert string to numbers and operator and send for calculation
 function calculate (someString) {
   let newArray = someString.split(' ');
+  //duue to a space after the opertaor the 3rd array element was 
+  //empty. Removing the empty element
     if (newArray.length === 3 ) {
       if(newArray[2] === '') {
         newArray.pop();
         return;
       }
+      //sending data for calculation and displaying the result
       let num1 = Number(newArray[0])
       let num2 = Number(newArray[2])
       let operator = newArray[1];
       let result = operate(operator, num1, num2);
-      displayArea.value = result.toString();
       newArray = [];
       newArray[0] = result;
-      return;
+      console.log(displayArea.value);
+      console.log(displayArea.value);
+      return String(result);
      } else if(newArray.length > 3) {
-        console.log(newArray);
+      //if user needed more than one operation done
       let num1 = Number(newArray[0])
       let num2 = Number(newArray[2])
       let operator = newArray[1];
@@ -93,5 +97,4 @@ function calculate (someString) {
       displayArea.value = `${result} ${operator} `
       return;
       }
-  
 }
