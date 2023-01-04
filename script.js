@@ -3,6 +3,7 @@ const displayArea = document.getElementById('displayarea');
 const clearBtn = document.getElementById('clear-btn');
 const equalBtn = document.getElementById('equal-btn');
 const delBtn = document.getElementById('del-btn');
+const operatorBtn = document.querySelectorAll('#digit-opr');
 
 // functions for calculating based on user input
 function add (a, b) {
@@ -33,11 +34,21 @@ function operate (operator, a, b) {
       return divide(a, b);
   }
 }
+
 // event listener for displaying user input
 digitButton.forEach(item => {
   item.addEventListener('click', () => {
     displayArea.value += item.value;
   })
+})
+
+operatorBtn.forEach(item => {
+  item.addEventListener('click', (e) => {
+    let operator = item.value;
+    displayArea.value += operator;
+    calculate(displayArea.value);
+  })
+
 })
 // event listener for clearing all data on display
 clearBtn.addEventListener('click', () => {
@@ -55,8 +66,27 @@ delBtn.addEventListener('click', () => {
 // convert string to numbers and operator and send for calculation
 function calculate (someString) {
   let newArray = someString.split(' ');
+  if(newArray.length < 3){
+    return someString;
+  } else if(newArray.length === 3) {
   let num1 = Number(newArray[0])
   let num2 = Number(newArray[2])
   let operator = newArray[1];
-  return operate(operator, num1, num2);
+  let result = operate(operator, num1, num2);
+  newArray = [];
+  newArray[0] = result;
+  return result;
+  } else {
+  let num1 = Number(newArray[0])
+  let num2 = Number(newArray[2])
+  let operator = newArray[1];
+  let operator2 = newArray[3]
+  let result = operate(operator, num1, num2);
+  operator = operator2;
+  newArray = [];
+  newArray[0] = result;
+  newArray[1] = operator2;
+  return result + operator2;
+  }
+  
 }
